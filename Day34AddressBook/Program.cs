@@ -10,8 +10,10 @@ namespace Day34AddressBook
             AddressBookRepo repo = new AddressBookRepo();
             AddressBookModel model = new AddressBookModel();
             //Call One Method At a Time Comment Other Method While Calling the Required Method
-            repo.Update(model);
+            //repo.Update(model);
             //repo.GetDetails();
+            //repo.Alter(model);
+            repo.GetDateRange(model);
         }
     }
 }

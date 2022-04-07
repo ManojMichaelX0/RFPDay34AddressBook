@@ -16,7 +16,8 @@ namespace Day34AddressBook
         public int Zip { get; set; }
         public string PhoneNumber { get; set; }
         public string email { get; set; }
-        public string RelationType { get; set; }
+        public string RElationType { get; set; }
+        public DateTime StartDate { get; set; }
 
     }
 }
