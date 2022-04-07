@@ -71,38 +71,7 @@ namespace Day34AddressBook
                 this.connection.Close();
             }
         }
-        public bool AddAddressBook(AddressBookModel model)
-        {
-            try
-            {
-                using (this.connection)
-                {
-                    SqlCommand command = new SqlCommand("SPAddressBook", this.connection);
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@FirstName", model.FirstName);
-                    command.Parameters.AddWithValue("@LastName", model.LastName);
-                    command.Parameters.AddWithValue("@_address", model._address);
-                    command.Parameters.AddWithValue("@City", model.City);
-                    command.Parameters.AddWithValue("@_State", model._State);
-                    command.Parameters.AddWithValue("@Zip", model.Zip);
-                    command.Parameters.AddWithValue("@PhoneNumber", model.PhoneNumber);
-                    command.Parameters.AddWithValue("@email", model.email);
-                    command.Parameters.AddWithValue("@RelationType", model.RelationType);
-                    this.connection.Open();
-                    var result = command.ExecuteNonQuery();
-                    this.connection.Close();
-                    if (result != 0)
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
+        
     }
 
 }
