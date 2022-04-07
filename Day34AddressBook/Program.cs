@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Day34AddressBook
 {
@@ -10,9 +10,16 @@ namespace Day34AddressBook
             AddressBookRepo repo = new AddressBookRepo();
             AddressBookModel model = new AddressBookModel();
             //Call One Method At a Time Comment Other Method While Calling the Required Method
-            //repo.Update(model);
+            //UC 16
             //repo.GetDetails();
-            //repo.Alter(model);
+
+            //UC 17
+            //repo.Update(model);
+
+            //UC-18 Alter Table Call This method First while Commenting GetDatRange method and vise versa
+            repo.Alter(model);
+
+            //UC-18 Get Range
             repo.GetDateRange(model);
         }
     }
