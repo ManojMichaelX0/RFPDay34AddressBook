@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,11 +44,11 @@ namespace Day34AddressBook
                             addressBookModel.PhoneNumber = dr.GetString(6);
                             addressBookModel.email = dr.GetString(7);
                             addressBookModel.RelationType = dr.GetString(8);
-                           
+
 
                             //display retieved record
 
-                            Console.WriteLine("FirstName : "+"{0}"+", Last Name : "+"{1}"+", Address : "+"{2}"+", City : "+"{3}"+", State"+"{4}"+", Zip : "+"{5}"+", PhoneNumber : "+"{6}"+", Email : "+"{7}"+", Relation Type : "+"{8}",addressBookModel.FirstName, addressBookModel.LastName, addressBookModel._address, addressBookModel.City, addressBookModel._State, addressBookModel.Zip, addressBookModel.PhoneNumber, addressBookModel.email,addressBookModel.RelationType);
+                            Console.WriteLine("FirstName : " + "{0}" + ", Last Name : " + "{1}" + ", Address : " + "{2}" + ", City : " + "{3}" + ", State" + "{4}" + ", Zip : " + "{5}" + ", PhoneNumber : " + "{6}" + ", Email : " + "{7}" + ", Relation Type : " + "{8}", addressBookModel.FirstName, addressBookModel.LastName, addressBookModel._address, addressBookModel.City, addressBookModel._State, addressBookModel.Zip, addressBookModel.PhoneNumber, addressBookModel.email, addressBookModel.RelationType);
 
                         }
                     }
@@ -71,7 +71,7 @@ namespace Day34AddressBook
                 this.connection.Close();
             }
         }
-        
+
     }
 
 }
