@@ -105,7 +105,7 @@ namespace Day34AddressBook
             Console.WriteLine("Alter Successfull Added StartDate Column");
             dr.Close();
             this.connection.Close();
-          
+
         }
         //UC 18 Get Date
         public void GetDateRange(AddressBookModel model)
@@ -137,6 +137,27 @@ namespace Day34AddressBook
             }
             dr.Close();
             this.connection.Close();
+
+        }
+
+        public void Count(AddressBookModel model)
+        {
+            string query = @"Select Count(City) From Address_Book_Table Where City='Kazipet'";
+            SqlCommand cmd = new SqlCommand(query, this.connection);
+            this.connection.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    int count = dr.GetInt32(0);
+                    Console.WriteLine("Count of City Kazipet : " + "{0}", count);
+                }
+            }
+            Console.WriteLine("Alter Successfull Added StartDate Column");
+            dr.Close();
+            this.connection.Close();
+
         }
 
     }
