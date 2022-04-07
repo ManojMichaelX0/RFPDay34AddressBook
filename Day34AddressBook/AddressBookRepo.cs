@@ -13,6 +13,7 @@ namespace Day34AddressBook
         public static string connectionString = @"Data Source=localhost\SQLEXPRESS;Database=Address_Book;Trusted_Connection=True";
         SqlConnection connection = new SqlConnection(connectionString);
 
+        //UC 16
         public void GetDetails()
         {
             try
@@ -36,19 +37,12 @@ namespace Day34AddressBook
                         while (dr.Read())
                         {
                             addressBookModel.FirstName = dr.GetString(0);
-                            addressBookModel.LastName = dr.GetString(1);
-                            addressBookModel._address = dr.GetString(2);
-                            addressBookModel.City = dr.GetString(3);
-                            addressBookModel._State = dr.GetString(4);
-                            addressBookModel.Zip = dr.GetInt32(5);
-                            addressBookModel.PhoneNumber = dr.GetString(6);
-                            addressBookModel.email = dr.GetString(7);
                             addressBookModel.RelationType = dr.GetString(8);
-                           
+
 
                             //display retieved record
 
-                            Console.WriteLine("FirstName : "+"{0}"+", Last Name : "+"{1}"+", Address : "+"{2}"+", City : "+"{3}"+", State"+"{4}"+", Zip : "+"{5}"+", PhoneNumber : "+"{6}"+", Email : "+"{7}"+", Relation Type : "+"{8}",addressBookModel.FirstName, addressBookModel.LastName, addressBookModel._address, addressBookModel.City, addressBookModel._State, addressBookModel.Zip, addressBookModel.PhoneNumber, addressBookModel.email,addressBookModel.RelationType);
+                            Console.WriteLine("FirstName : " + "{0}" + ", Last Name : " + "{1}" + ", Address : " + "{2}" + ", City : " + "{3}" + ", State" + "{4}" + ", Zip : " + "{5}" + ", PhoneNumber : " + "{6}" + ", Email : " + "{7}" + ", Relation Type : " + "{8}", addressBookModel.FirstName, addressBookModel.LastName, addressBookModel._address, addressBookModel.City, addressBookModel._State, addressBookModel.Zip, addressBookModel.PhoneNumber, addressBookModel.email, addressBookModel.RelationType);
 
                         }
                     }
@@ -71,38 +65,33 @@ namespace Day34AddressBook
                 this.connection.Close();
             }
         }
-        public bool AddAddressBook(AddressBookModel model)
+        //UC 17
+        public void Update(AddressBookModel addressBookModel)
         {
-            try
+            string query = @"Update Address_Book_Table Set RelationType ='Me' Where FirstName='Manoj'";
+            SqlCommand cmd = new SqlCommand(query, this.connection);
+            this.connection.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+            AddressBookModel addressBook = new AddressBookModel();
+            Console.WriteLine("Update Successfull");
+
+            if(dr.HasRows)
             {
-                using (this.connection)
+                while (dr.Read())
                 {
-                    SqlCommand command = new SqlCommand("SPAddressBook", this.connection);
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@FirstName", model.FirstName);
-                    command.Parameters.AddWithValue("@LastName", model.LastName);
-                    command.Parameters.AddWithValue("@_address", model._address);
-                    command.Parameters.AddWithValue("@City", model.City);
-                    command.Parameters.AddWithValue("@_State", model._State);
-                    command.Parameters.AddWithValue("@Zip", model.Zip);
-                    command.Parameters.AddWithValue("@PhoneNumber", model.PhoneNumber);
-                    command.Parameters.AddWithValue("@email", model.email);
-                    command.Parameters.AddWithValue("@RelationType", model.RelationType);
-                    this.connection.Open();
-                    var result = command.ExecuteNonQuery();
-                    this.connection.Close();
-                    if (result != 0)
-                    {
-                        return true;
-                    }
-                    return false;
+                    addressBook.FirstName = dr.GetString(0);
+                    addressBook.RelationType = dr.GetString(8);
+                    //display 
+
+                    Console.WriteLine("FirstName : " + "{0}" + "Relation Type : " + "{8}", addressBookModel.FirstName, addressBookModel.RelationType);
+
+
                 }
             }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            dr.Close();
+            this.connection.Close();
         }
+
     }
 
 }

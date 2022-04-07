@@ -8,8 +8,10 @@ namespace Day34AddressBook
         {
             Console.WriteLine("Welcome to Address Book ADO.Net!");
             AddressBookRepo repo = new AddressBookRepo();
-            repo.GetDetails();
-
+            AddressBookModel model = new AddressBookModel();
+            //Call One Method At a Time Comment Other Method While Calling the Required Method
+            repo.Update(model);
+            //repo.GetDetails();
         }
     }
 }
