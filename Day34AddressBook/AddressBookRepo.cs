@@ -131,7 +131,7 @@ namespace Day34AddressBook
                     addressBookModel.RElationType = dr.GetString(8);
                     addressBookModel.StartDate = dr.GetDateTime(9);
 
-                    Console.WriteLine("FirstName : " + "{0}" + ", Last Name : " + "{1}" + ", Address : " + "{2}" + ", City : " + "{3}" + ", State" + "{4}" + ", Zip : " + "{5}" + ", PhoneNumber : " + "{6}" + ", Email : " + "{7}" + ", Relation Type : " + "{8}" + ", Start Date : " + "{9}", addressBookModel.FirstName, addressBookModel.LastName, addressBookModel._address, addressBookModel.City, addressBookModel._State, addressBookModel.Zip, addressBookModel.PhoneNumber, addressBookModel.email, addressBookModel.RElationType, addressBookModel.StartDate);
+                    Console.WriteLine("\nFirstName : " + "{0}" + ", Last Name : " + "{1}" + ", Address : " + "{2}" + ", City : " + "{3}" + ", State" + "{4}" + ", Zip : " + "{5}" + ", PhoneNumber : " + "{6}" + ", Email : " + "{7}" + ", Relation Type : " + "{8}" + ", Start Date : " + "{9}", addressBookModel.FirstName, addressBookModel.LastName, addressBookModel._address, addressBookModel.City, addressBookModel._State, addressBookModel.Zip, addressBookModel.PhoneNumber, addressBookModel.email, addressBookModel.RElationType, addressBookModel.StartDate);
 
                 }
             }
@@ -139,7 +139,7 @@ namespace Day34AddressBook
             this.connection.Close();
 
         }
-
+        //UC 19
         public void Count(AddressBookModel model)
         {
             string query = @"Select Count(City) From Address_Book_Table Where City='Kazipet'";
@@ -154,10 +154,47 @@ namespace Day34AddressBook
                     Console.WriteLine("Count of City Kazipet : " + "{0}", count);
                 }
             }
-            Console.WriteLine("Alter Successfull Added StartDate Column");
             dr.Close();
             this.connection.Close();
 
+        }
+        //UC 20
+        public void AddDetials(AddressBookModel model1)
+        {
+            try
+            {
+                using (this.connection)
+                {
+                    SqlCommand command = new SqlCommand("SPAddressBook", this.connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@FirstName", model1.FirstName);
+                    command.Parameters.AddWithValue("@LastName", model1.LastName);
+                    command.Parameters.AddWithValue("@_address", model1._address);
+                    command.Parameters.AddWithValue("@City", model1.City);
+                    command.Parameters.AddWithValue("@_State", model1._State);
+                    command.Parameters.AddWithValue("@Zip", model1.Zip);
+                    command.Parameters.AddWithValue("@PhoneNumber", model1.PhoneNumber);
+                    command.Parameters.AddWithValue("@email", model1.email);
+                    command.Parameters.AddWithValue("@RElationType", model1.RElationType);
+                    command.Parameters.AddWithValue("@StartDate", model1.StartDate);
+
+                    this.connection.Open();
+                    var result = command.ExecuteNonQuery();
+                    this.connection.Close();
+                    if(result != 0)
+                    {
+                        AddressBookRepo repo = new AddressBookRepo();
+                        repo.GetDetails();
+
+                    }
+                }
+            }
+
+
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
     }
